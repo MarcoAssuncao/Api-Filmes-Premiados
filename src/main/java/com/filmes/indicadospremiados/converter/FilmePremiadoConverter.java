@@ -1,20 +1,20 @@
 package com.filmes.indicadospremiados.converter;
 
-import com.filmes.indicadospremiados.dto.FilmeDTO;
 import com.filmes.indicadospremiados.dto.FilmesPremiadosDTO;
+import com.filmes.indicadospremiados.dto.ProducerFilmePremiadoDTO;
 import org.springframework.stereotype.Component;
 
 @Component
 public class FilmePremiadoConverter {
 
-    public FilmesPremiadosDTO converterTOFilme(FilmeDTO primeiroFilme,
-                                               FilmeDTO ultimoFilme) {
+    public FilmesPremiadosDTO converterTOFilme(ProducerFilmePremiadoDTO primeiroFilme,
+                                               ProducerFilmePremiadoDTO ultimoFilme) {
         return FilmesPremiadosDTO
                 .builder()
-                .producer(primeiroFilme.getProducers())
-                .previousWin(primeiroFilme.getYear())
-                .followingWin(ultimoFilme.getYear())
-                .interval(ultimoFilme.getYear() - primeiroFilme.getYear())
+                .producer(primeiroFilme.getProducer())
+                .previousWin(primeiroFilme.getAnoLancamento())
+                .followingWin(ultimoFilme.getAnoLancamento())
+                .interval(ultimoFilme.getAnoLancamento() - primeiroFilme.getAnoLancamento())
                 .build();
     }
 }

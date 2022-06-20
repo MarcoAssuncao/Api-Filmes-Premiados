@@ -13,15 +13,17 @@ import java.util.List;
 public class FilmePremiadoService {
 
     private final FilmeCriteria filmeCriteria;
+    private final FilmeService filmeService;
 
     public FilmesDTO buscarFilmesPremiados() {
 
-        List<FilmesPremiadosDTO> filtroFilmesPremiadosDTOS = filmeCriteria.filtrarPorCriterioMaiorPeriodo();
-        List<FilmesPremiadosDTO> filtroFilmesPremeadosMenorPeriodo = filmeCriteria.filtrarPorCriterioMenorPeriodo();
+        List<FilmesPremiadosDTO> filmesPremiadosDTOS = filmeService.classificarFilmesPremiadosPorPeriodo();
+        List<FilmesPremiadosDTO> filtroMaiorPeriodo = filmeCriteria.filtrarPorCriterioMaiorPeriodo(filmesPremiadosDTOS);
+        List<FilmesPremiadosDTO> filtroMenorPeriodo = filmeCriteria.filtrarPorCriterioMenorPeriodo(filmesPremiadosDTOS);
         return FilmesDTO
                 .builder()
-                .max(filtroFilmesPremiadosDTOS)
-                .min(filtroFilmesPremeadosMenorPeriodo)
+                .max(filtroMaiorPeriodo)
+                .min(filtroMenorPeriodo)
                 .build();
     }
 }
